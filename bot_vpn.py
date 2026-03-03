@@ -10,16 +10,21 @@ def home():
     return "Bot is running!"
 
 def run():
-    app.run(host='0.0.0.0', port=8080)
+    # Render sẽ tự cấp PORT, nếu không có sẽ dùng 8080
+    import os
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host='0.0.0.0', port=port)
 
 def keep_alive():
     t = Thread(target=run)
     t.start()
 # ----------------------------------
 
-TOKEN = '8521576609:AAFpHUGUqFda2xbUrdLNu08Bgi6VDExeKOk'
+# ĐÃ CẬP NHẬT TOKEN MỚI CỦA BẠN TẠI ĐÂY
+TOKEN = '8521576609:AAE06Bt3K5CFc1HoBV6IWrmfpkTiS4AWJiA'
 bot = telebot.TeleBot(TOKEN)
 
+# File IDs
 APPKONEN_ID = 'BQACAgUAAyEFAATmOJBdAAOiaaJv3HMkpzecpKtBcpwQ5JV0VcYAAvUdAAI0ZhhVlBhdOTkVpmc6BA'
 MTUNNEL_VPN_ID = 'BQACAgUAAyEFAATmOJBdAANNaaHAzbgcjXQ1sNGMPhn7ZvUN5CsAAhMfAAI0ZhBVC3AAAQNAAqmtOgQ'
 VIDEO_SETTING_SHADOW_ID = 'BAACAgUAAyEFAATmOJBdAAO6aaL2hidAmqh8ZfTKNeSIPcN7CvAAAnQfAAI0ZhhVyP44ChiubTY6BA'
@@ -87,5 +92,7 @@ def handle_messages(message):
 
 if __name__ == "__main__":
     keep_alive()
+    print("Bot đang khởi động với Token mới...")
+    # Lệnh quan trọng để xóa mọi kết nối cũ đang bị xung đột
     bot.remove_webhook()
     bot.infinity_polling(skip_pending=True)

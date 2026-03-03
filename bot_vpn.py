@@ -1,15 +1,29 @@
+from flask import Flask
+from threading import Thread
 import telebot
 
-TOKEN = '8521576609:AAFpHUGUqFda2xbUrdLNu08Bgi6VDExeKOk'
+# --- ĐOẠN CODE GIỮ BOT LUÔN SỐNG ---
+app = Flask('')
 
-# Định nghĩa các File ID (Document & Video)
+@app.route('/')
+def home():
+    return "Bot is running!"
+
+def run():
+    app.run(host='0.0.0.0', port=8080)
+
+def keep_alive():
+    t = Thread(target=run)
+    t.start()
+# ----------------------------------
+
+TOKEN = '8521576609:AAFpHUGUqFda2xbUrdLNu08Bgi6VDExeKOk'
+bot = telebot.TeleBot(TOKEN)
+
 APPKONEN_ID = 'BQACAgUAAyEFAATmOJBdAAOiaaJv3HMkpzecpKtBcpwQ5JV0VcYAAvUdAAI0ZhhVlBhdOTkVpmc6BA'
 MTUNNEL_VPN_ID = 'BQACAgUAAyEFAATmOJBdAANNaaHAzbgcjXQ1sNGMPhn7ZvUN5CsAAhMfAAI0ZhBVC3AAAQNAAqmtOgQ'
 VIDEO_SETTING_SHADOW_ID = 'BAACAgUAAyEFAATmOJBdAAO6aaL2hidAmqh8ZfTKNeSIPcN7CvAAAnQfAAI0ZhhVyP44ChiubTY6BA'
 
-bot = telebot.TeleBot(TOKEN)
-
-# 1. LỆNH /HELP HOẶC /START
 @bot.message_handler(commands=['help', 'start'])
 def send_help(message):
     help_text = (
@@ -24,22 +38,15 @@ def send_help(message):
     )
     bot.reply_to(message, help_text, parse_mode='HTML')
 
-# 2. XỬ LÝ CÁC LỆNH NHẮN TIN
 @bot.message_handler(func=lambda message: message.text is not None)
 def handle_messages(message):
     text = message.text.upper()
 
-    # LỆNH GỬI VIDEO SETTING SHADOWROCKET
     if '#SETTINGSHADOW' in text:
         try:
-            bot.send_video(
-                message.chat.id, 
-                VIDEO_SETTING_SHADOW_ID, 
-                reply_to_message_id=message.message_id
-            )
+            bot.send_video(message.chat.id, VIDEO_SETTING_SHADOW_ID, reply_to_message_id=message.message_id)
         except: pass
 
-    # LỆNH ĐĂNG KÝ NỀN
     elif '#DANGKYNEN' in text:
         nen_text = (
             "🌐 <b>TỔNG HỢP GÓI VPN NỀN 2026</b>\n"
@@ -60,24 +67,14 @@ def handle_messages(message):
         )
         bot.reply_to(message, nen_text, parse_mode='HTML')
 
-    # FIX TIMEOUT SHADOWROCKET
     elif '#TIMEOUTSHADOW' in text:
-        shadow_text = (
-            "❤️‍🔥 <b>Fix Timeout Shadowrocket</b> 👑\n"
-            "✈️ <b>Chế độ máy bay:</b> Bật/Tắt - 3 lần 🔴🟢\n"
-            "🇻🇳 Kiểm tra kết nối Proxy & Cấu hình ❤️‍🔥"
-        )
+        shadow_text = "❤️‍🔥 <b>Fix Timeout Shadowrocket</b>\n✈️ Bật/Tắt máy bay 3 lần."
         bot.reply_to(message, shadow_text, parse_mode='HTML')
 
-    # FIX TIMEOUT NPV
     elif '#TIMEOUTNPV' in text:
-        npv_text = (
-            "👑 <b>Npv Tunnel - IOS</b> ✈️\n"
-            "Bật/Tắt máy bay 3 lần + vuốt tắt app rồi check ping 5 lần."
-        )
+        npv_text = "👑 <b>Npv Tunnel - IOS</b>\nBật/Tắt máy bay 3 lần + vuốt tắt app."
         bot.reply_to(message, npv_text, parse_mode='HTML')
 
-    # GỬI FILE APK (KHÔNG CAPTION)
     elif '#APPKHONGNEN' in text:
         try:
             bot.send_document(message.chat.id, APPKONEN_ID, reply_to_message_id=message.message_id)
@@ -88,4 +85,7 @@ def handle_messages(message):
             bot.send_document(message.chat.id, MTUNNEL_VPN_ID, reply_to_message_id=message.message_id)
         except: pass
 
-bot.infinity_polling()
+if __name__ == "__main__":
+    keep_alive()
+    bot.remove_webhook()
+    bot.infinity_polling(skip_pending=True)

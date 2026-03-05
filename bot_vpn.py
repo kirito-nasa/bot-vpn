@@ -22,25 +22,25 @@ TOKEN = "8521576609:AAE06Bt3K5CFc1HoBV6IWrmfpkTiS4AWJiA"
 bot = telebot.TeleBot(TOKEN)
 
 # file_id
-APK_FILE_ID = "?"
-SPEEDVPN_FILE_ID = "?"
-MTUNNEL_FILE_ID = "?"
+KONENADR_ID = "BQACAgUAAyEFAATnEEqeAAMCaamVbVy2blbOWYtO2Tq7-znj6-gAApMdAAKlpEhV-phXgFIhJEs6BA"
 
 # SETTINGNPV images
-SETTINGNPV_IMG1 = "?"
-SETTINGNPV_IMG2 = "?"
-SETTINGNPV_IMG3 = "?"
+SETTINGNPV_IMG1 = "AgACAgUAAyEFAATnEEqeAAMFaamWTq04OFr8E1lTCCrbvKTO_ZsAArMPaxulpEhVoZ0k-SnG1qgBAAMCAAN5AAM6BA"
+SETTINGNPV_IMG2 = "AgACAgUAAyEFAATmOJBdAAICbGmpWykZbVQgMcIpVlCr5bs5CKuwAAL3DWsbfE5RVXzKrXAbEr7qAQADAgADeQADOgQ"
+SETTINGNPV_IMG3 = "AgACAgUAAyEFAATnEEqeAAMHaamWTmmHuXx918203c6rVNVlKgUAArQPaxulpEhVQO1UrZlGUuYBAAMCAAN5AAM6BA"
 
 # SETTINGSHADOW video
-SETTINGSHADOW_VIDEO_ID = "?"
+SETTINGSHADOW_VIDEO_ID = "BAACAgUAAyEFAATnEEqeAAMDaamWD5bA4tr6LP7f5MzCd08CMzMAApUdAAKlpEhVbve8R6DStuM6BA"
+
+# PHATSHADOW video
+PHATSHADOW_VIDEO_ID = "BAACAgUAAyEFAATnEEqeAAMXaambDprhrVsYAAHXaOfLL4Hwk5JBAAJYHAACbDpRVb00Mjtja22tOgQ"
 
 HELP_TEXT = """DANH SÁCH LỆNH HỖ TRỢ:
 /notes : Danh sách lệnh hỗ trợ
 #NENTIKTOK : Hướng dẫn đăng ký nền tiktok
-#APPKONEN : File app không nền android
-#SPEEDVPN : File app SPEEDVPN (app cũ không nền)
+#KONENADR : File app không nền android mới nhất
 #SETTINGNPV : Setting app NPV Tunnel
-#MTUNNEL : File app Mtunnel
+#PHATSHADOW : Video hướng dẫn phát wifi bằng app Shadowrocket
 #SETTINGSHADOW : Video hướng dẫn sử dụng nền tiktok và settings shadowrocket
 """
 
@@ -96,22 +96,13 @@ def notes_command(message):
 def nen_tiktok(message):
     bot.reply_to(message, NEN_TIKTOK)
 
-@bot.message_handler(func=lambda m: m.text and m.text.strip().upper() == "#APPKONEN")
-def app_konen(message):
+@bot.message_handler(func=lambda m: m.text and m.text.strip().upper() == "#KONENADR")
+def konen_adr(message):
     bot.send_document(
         message.chat.id,
-        APK_FILE_ID,
+        KONENADR_ID,
         reply_to_message_id=message.message_id
     )
-
-@bot.message_handler(func=lambda m: m.text and m.text.strip().upper() == "#SPEEDVPN")
-def speedvpn(message):
-    bot.send_document(
-        message.chat.id,
-        SPEEDVPN_FILE_ID,
-        reply_to_message_id=message.message_id
-    )
-
 
 @bot.message_handler(func=lambda m: m.text and m.text.strip().upper() == "#SETTINGNPV")
 def setting_npv(message):
@@ -126,14 +117,13 @@ def setting_npv(message):
         reply_to_message_id=message.message_id
     )
 
-@bot.message_handler(func=lambda m: m.text and m.text.strip().upper() == "#MTUNNEL")
-def mtunnel(message):
-    bot.send_document(
+@bot.message_handler(func=lambda m: m.text and m.text.strip().upper() == "#PHATSHADOW")
+def phat_shadow(message):
+    bot.send_video(
         message.chat.id,
-        MTUNNEL_FILE_ID,
+        PHATSHADOW_VIDEO_ID,
         reply_to_message_id=message.message_id
     )
-
 
 @bot.message_handler(func=lambda m: m.text and m.text.strip().upper() == "#SETTINGSHADOW")
 def setting_shadow(message):

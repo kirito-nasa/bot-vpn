@@ -18,7 +18,7 @@ def keep_alive():
     t = Thread(target=run, daemon=True)
     t.start()
 
-TOKEN = "8521576609:AAE06Bt3K5CFc1HoBV6IWrmfpkTiS4AWJiA"
+TOKEN = "8521576609:AAGX3e63KZgjzx3On3hPrqwAi1hnyTwGxsk"
 bot = telebot.TeleBot(TOKEN)
 
 # file_id

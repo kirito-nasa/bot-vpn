@@ -18,7 +18,7 @@ def keep_alive():
     t = Thread(target=run, daemon=True)
     t.start()
 
-TOKEN = "8521576609:AAGX3e63KZgjzx3On3hPrqwAi1hnyTwGxsk"
+TOKEN = "8521576609:AAE60ZYt-iV9G0sphI4gsiBr8-G0owuSHzA"
 bot = telebot.TeleBot(TOKEN)
 
 # file_id
@@ -35,13 +35,48 @@ SETTINGSHADOW_VIDEO_ID = "BAACAgUAAyEFAATnEEqeAAMDaamWD5bA4tr6LP7f5MzCd08CMzMAAp
 # PHATSHADOW video
 PHATSHADOW_VIDEO_ID = "BAACAgUAAyEFAATnEEqeAAMXaambDprhrVsYAAHXaOfLL4Hwk5JBAAJYHAACbDpRVb00Mjtja22tOgQ"
 
+# NPV Tunnel video
+HDNPV_VIDEO_ID = "BAACAgUAAyEFAATnEEqeAAMiaasNpX2pAAFcVGLgXnhmuL2UPIn_AAJMHgACbDpZVQt3dAABrPIJsToE"
+
+# SGMODULE file
+SGMODULE_FILE_ID = "BQACAgUAAyEFAATnEEqeAAM4aasSTJfLF4Bgx6yXnipLAu2XD1AAAlEeAAJsOllV8M_NAr1Cd7g6BA"
+
 HELP_TEXT = """DANH SÁCH LỆNH HỖ TRỢ:
 /notes : Danh sách lệnh hỗ trợ
 #NENTIKTOK : Hướng dẫn đăng ký nền tiktok
 #KONENADR : File app không nền android mới nhất
 #SETTINGNPV : Setting app NPV Tunnel
+#KEYKONEN : Cách lấy key(adr) hoặc file(ios) gói không nền
+#SGMODULE : file .sgmodule dùng để unlock premium một số app
+#TIMEOUTSHADOW : Hướng dẫn fix timeout Shadowrocket
+#TIMEOUTNPV : Hướng dẫn fix timeout NPV Tunnel
+#HDNPV : Video hướng dẫn tải và sử dụng app NPV Tunnel(IOS)
 #PHATSHADOW : Video hướng dẫn phát wifi bằng app Shadowrocket
 #SETTINGSHADOW : Video hướng dẫn sử dụng nền tiktok và settings shadowrocket
+"""
+TIMEOUTSHADOW_TEXT = """❤️‍🔥Fix Timeout👑
+🔥Shadowrocket✈️
+ ✈️ Chế độ máy bay ✈️
+   🟢Bật/Tắt-3 lần🔴
+ 🇻🇳Kiểu kết nối Proxy❤️‍🔥
+  🇻🇳Kiểm tra kết nối❤️‍🔥
+ 🇻🇳Kiểu kết nối Cấu hình❤️‍🔥
+  🇻🇳Kiểm tra kết nối❤️‍🔥
+ 🇻🇳Kiểu kết nối Cấu hình❤️‍🔥
+  🇻🇳Kiểm tra kết nối❤️‍🔥
+ 🇻🇳Kiểu kết nối Proxy❤️‍🔥
+  🇻🇳Kiểm tra kết nối❤️‍🔥
+  """
+
+KEYKONEN_TEXT = """❤️‍🔥Cách lấy key(adr) hoặc file(ios) gói không nền👑
+Gửi ảnh chụp ở trang chủ web + bill + gmail cho Admin, Admin sẽ đưa lại key(adr) hoặc file(ios) gói không nền cho bạn
+"""
+
+TIMEOUTNPV_TEXT = """❤️👑Npv Tunnel✈️
+Nhận biết Timeout Npv Tunnel
+Ping -1 ms,10000 ms
+Fix Timeout Npv Tunnel
+Bật,Tắt chế độ máy bay (3 lần) + vuốt tap vào kết nối rồi check ping 5 lần
 """
 
 NEN_TIKTOK = """🌐 TỔNG HỢP GÓI VPN NỀN 4G/5G 2026 – VIETTEL | VINA | MOBI | LOCAL | SAYMEE
@@ -92,15 +127,43 @@ MAY89S: 77K/tháng
 def notes_command(message):
     bot.reply_to(message, HELP_TEXT)
 
+@bot.message_handler(func=lambda m: m.text and m.text.strip().upper() == "#TIMEOUTSHADOW")
+def timeout_shadow(message):
+    bot.reply_to(message, TIMEOUTSHADOW_TEXT)
+
 @bot.message_handler(func=lambda m: m.text and m.text.strip().upper() == "#NENTIKTOK")
 def nen_tiktok(message):
     bot.reply_to(message, NEN_TIKTOK)
+
+@bot.message_handler(func=lambda m: m.text and m.text.strip().upper() == "#SGMODULE")
+def sgmodule(message):
+    bot.send_document(
+        message.chat.id,
+        SGMODULE_FILE_ID,
+        reply_to_message_id=message.message_id
+    )
+
+@bot.message_handler(func=lambda m: m.text and m.text.strip().upper() == "#TIMEOUTNPV")
+def timeout_npv(message):
+    bot.reply_to(message, TIMEOUTNPV_TEXT)
 
 @bot.message_handler(func=lambda m: m.text and m.text.strip().upper() == "#KONENADR")
 def konen_adr(message):
     bot.send_document(
         message.chat.id,
         KONENADR_ID,
+        reply_to_message_id=message.message_id
+    )
+
+@bot.message_handler(func=lambda m: m.text and m.text.strip().upper() == "#KEYKONEN")
+def konen(message):
+    bot.reply_to(message, KEYKONEN_TEXT)
+
+@bot.message_handler(func=lambda m: m.text and m.text.strip().upper() == "#HDNPV")
+def hd_npv(message):
+    bot.send_video(
+        message.chat.id,
+        HDNPV_VIDEO_ID,
         reply_to_message_id=message.message_id
     )
 

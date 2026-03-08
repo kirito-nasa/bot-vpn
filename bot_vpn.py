@@ -18,7 +18,7 @@ def keep_alive():
     t = Thread(target=run, daemon=True)
     t.start()
 
-TOKEN = "8521576609:AAE60ZYt-iV9G0sphI4gsiBr8-G0owuSHzA"
+TOKEN = "8521576609:AAHDKkU-Ie8NXRbFciG-nW_JU1Dh-0uu7lY"
 bot = telebot.TeleBot(TOKEN)
 
 # file_id
@@ -41,6 +41,9 @@ HDNPV_VIDEO_ID = "BAACAgUAAyEFAATnEEqeAAMiaasNpX2pAAFcVGLgXnhmuL2UPIn_AAJMHgACbD
 # SGMODULE file
 SGMODULE_FILE_ID = "BQACAgUAAyEFAATnEEqeAAM4aasSTJfLF4Bgx6yXnipLAu2XD1AAAlEeAAJsOllV8M_NAr1Cd7g6BA"
 
+# HDKONENADR video
+HDKONENADR_VIDEO_ID = "BAACAgUAAyEFAATnEEqeAANJaa2xm5mYCLypjcQxRGrzJvL-tjUAAtEgAAKdyXFVfnRFzgJ1u686BA"
+
 HELP_TEXT = """DANH SÁCH LỆNH HỖ TRỢ:
 /notes : Danh sách lệnh hỗ trợ
 #NENTIKTOK : Hướng dẫn đăng ký nền tiktok
@@ -48,6 +51,7 @@ HELP_TEXT = """DANH SÁCH LỆNH HỖ TRỢ:
 #SETTINGNPV : Setting app NPV Tunnel
 #KEYKONEN : Cách lấy key(adr) hoặc file(ios) gói không nền
 #SGMODULE : file .sgmodule dùng để unlock premium một số app
+#HDKONENADR : Video hướng dẫn sử dụng app không nền android mới nhất
 #TIMEOUTSHADOW : Hướng dẫn fix timeout Shadowrocket
 #TIMEOUTNPV : Hướng dẫn fix timeout NPV Tunnel
 #HDNPV : Video hướng dẫn tải và sử dụng app NPV Tunnel(IOS)
@@ -127,6 +131,10 @@ MAY89S: 77K/tháng
 def notes_command(message):
     bot.reply_to(message, HELP_TEXT)
 
+@bot.message_handler(commands=["help"])
+def help_command(message):
+    bot.reply_to(message, HELP_TEXT)
+
 @bot.message_handler(func=lambda m: m.text and m.text.strip().upper() == "#TIMEOUTSHADOW")
 def timeout_shadow(message):
     bot.reply_to(message, TIMEOUTSHADOW_TEXT)
@@ -134,6 +142,14 @@ def timeout_shadow(message):
 @bot.message_handler(func=lambda m: m.text and m.text.strip().upper() == "#NENTIKTOK")
 def nen_tiktok(message):
     bot.reply_to(message, NEN_TIKTOK)
+
+@bot.message_handler(func=lambda m: m.text and m.text.strip().upper() == "#HDKONENADR")
+def hd_konen_adr(message):
+    bot.send_video(
+        message.chat.id,
+        HDKONENADR_VIDEO_ID,
+        reply_to_message_id=message.message_id
+    )
 
 @bot.message_handler(func=lambda m: m.text and m.text.strip().upper() == "#SGMODULE")
 def sgmodule(message):

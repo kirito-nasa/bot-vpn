@@ -18,25 +18,25 @@ def keep_alive():
     t = Thread(target=run, daemon=True)
     t.start()
 
-TOKEN = "8521576609:AAHDKkU-Ie8NXRbFciG-nW_JU1Dh-0uu7lY"
+TOKEN = "8521576609:AAGu3UrMws0F4ZYJjCjHaXJzy4CPWK-PQlw"
 bot = telebot.TeleBot(TOKEN)
 
 # file_id
 KONENADR_ID = "BQACAgUAAyEFAATnEEqeAAMCaamVbVy2blbOWYtO2Tq7-znj6-gAApMdAAKlpEhV-phXgFIhJEs6BA"
 
 # SETTINGNPV images
-SETTINGNPV_IMG1 = "AgACAgUAAyEFAATnEEqeAAMFaamWTq04OFr8E1lTCCrbvKTO_ZsAArMPaxulpEhVoZ0k-SnG1qgBAAMCAAN5AAM6BA"
-SETTINGNPV_IMG2 = "AgACAgUAAyEFAATmOJBdAAICbGmpWykZbVQgMcIpVlCr5bs5CKuwAAL3DWsbfE5RVXzKrXAbEr7qAQADAgADeQADOgQ"
-SETTINGNPV_IMG3 = "AgACAgUAAyEFAATnEEqeAAMHaamWTmmHuXx918203c6rVNVlKgUAArQPaxulpEhVQO1UrZlGUuYBAAMCAAN5AAM6BA"
+SETTINGNPV_IMG1 = "AgACAgUAAyEFAATnEEqeAANZabGelKnL5CXBq3BcAAEJSbd6ZfQOAAJMDWsb1ViQVfC2NRL_9PeSAQADAgADeQADOgQ"
+SETTINGNPV_IMG2 = "AgACAgUAAyEFAATnEEqeAANYabGelJewdvU4s0rEqdiDKBA34iQAAksNaxvVWJBV4JZk0CjVkMABAAMCAAN5AAM6BA"
+SETTINGNPV_IMG3 = "AgACAgUAAyEFAATnEEqeAANaabGelIagKs4NXaQlwtinLD49QdgAAk0NaxvVWJBV5VTEhLFnP4cBAAMCAAN5AAM6BA"
 
 # SETTINGSHADOW video
-SETTINGSHADOW_VIDEO_ID = "BAACAgUAAyEFAATnEEqeAAMDaamWD5bA4tr6LP7f5MzCd08CMzMAApUdAAKlpEhVbve8R6DStuM6BA"
+HDSHADOW_VIDEO_ID = "BAACAgUAAyEFAATnEEqeAANUabGXtdLfawXP-kxZR2jonGvNRxIAAqckAALVWJBVJSu1BEzOkkk6BA"
 
 # PHATSHADOW video
 PHATSHADOW_VIDEO_ID = "BAACAgUAAyEFAATnEEqeAAMXaambDprhrVsYAAHXaOfLL4Hwk5JBAAJYHAACbDpRVb00Mjtja22tOgQ"
 
 # NPV Tunnel video
-HDNPV_VIDEO_ID = "BAACAgUAAyEFAATnEEqeAAMiaasNpX2pAAFcVGLgXnhmuL2UPIn_AAJMHgACbDpZVQt3dAABrPIJsToE"
+HDNPV_VIDEO_ID = "BAACAgUAAyEFAATnEEqeAANWabGaUJO67fP5kpFcWAwSaBgcWRoAAq8kAALVWJBV5Zez2GdIbZQ6BA"
 
 # SGMODULE file
 SGMODULE_FILE_ID = "BQACAgUAAyEFAATnEEqeAAM4aasSTJfLF4Bgx6yXnipLAu2XD1AAAlEeAAJsOllV8M_NAr1Cd7g6BA"
@@ -56,7 +56,7 @@ HELP_TEXT = """DANH SÁCH LỆNH HỖ TRỢ:
 #TIMEOUTNPV : Hướng dẫn fix timeout NPV Tunnel
 #HDNPV : Video hướng dẫn tải và sử dụng app NPV Tunnel(IOS)
 #PHATSHADOW : Video hướng dẫn phát wifi bằng app Shadowrocket
-#SETTINGSHADOW : Video hướng dẫn sử dụng nền tiktok và settings shadowrocket
+#HDSHADOW : Video hướng dẫn sử dụng và settings shadowrocket
 """
 TIMEOUTSHADOW_TEXT = """❤️‍🔥Fix Timeout👑
 🔥Shadowrocket✈️
@@ -204,11 +204,11 @@ def phat_shadow(message):
         reply_to_message_id=message.message_id
     )
 
-@bot.message_handler(func=lambda m: m.text and m.text.strip().upper() == "#SETTINGSHADOW")
-def setting_shadow(message):
+@bot.message_handler(func=lambda m: m.text and m.text.strip().upper() == "#HDSHADOW")
+def hd_shadow(message):
     bot.send_video(
         message.chat.id,
-        SETTINGSHADOW_VIDEO_ID,
+        HDSHADOW_VIDEO_ID,
         reply_to_message_id=message.message_id
     )
 
